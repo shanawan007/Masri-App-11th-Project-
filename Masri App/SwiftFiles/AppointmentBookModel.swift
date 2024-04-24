@@ -1,0 +1,50 @@
+//
+//  appointmentBook.swift
+//  Masri App
+//
+//  Created by Temp on 21/03/2024.
+//
+
+import Foundation
+
+struct Appointment: Encodable{
+    var first_name: String
+    var last_name: String
+    var email: String
+    var phone: String
+    var dob: String
+    var gender: String
+    var id: String
+    var user_id: String
+    var type_id: String
+    var location_id: String
+    var appointment_date: String
+    var appointment_time: String
+    var visit_reason: String
+    var visited_before: String
+    var provider_name: String
+    var paid_via: String
+    var created_by: String
+    var visit_type: String
+    var doctor_name: String
+    var address: String    
+}
+
+struct AppointmentDate: Encodable{
+    var appointment_date: String
+}
+struct AppointmentTime: Encodable{
+    var appointment_time: String
+}
+struct AppointmentVisit: Encodable{
+    var visit_reason: String
+}
+struct AppointmentDoctor: Encodable{
+    var doctor_name: String
+}
+struct AppointmentAddress: Encodable{
+    var address: String
+}
+
+
+
