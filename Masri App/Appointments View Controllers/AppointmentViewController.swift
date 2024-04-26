@@ -16,11 +16,19 @@ class AppointmentViewController: UIViewController,UITableViewDelegate, UITableVi
     
     var appointmentBook : [Appointment]?
     var appointmentCall: [[String: Any]] = []
+    var appointmentResultReverse: [[String: Any]] = []
     var appointmentDateArray = [String]()
     var appointmentTimeArray = [String]()
     var visitReasonArray = [String]()
     var doctorNameArray = [String]()
     var addressOfClientArray = [String]()
+    
+    var firstDate: String = ""
+    var secondDate: String = ""
+    
+    var firstResult : [[String: Any]] = []
+    @IBOutlet weak var activityContainer: UIView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,8 +69,9 @@ class AppointmentViewController: UIViewController,UITableViewDelegate, UITableVi
         datePickForStart.datePickerMode = .date
         datePickForEnd.preferredDatePickerStyle = .wheels
         datePickForEnd.datePickerMode = .date
-        
+    
         appointmentCheck()
+        
     }
     
     @IBOutlet weak var backImage: UIImageView!
@@ -87,9 +96,7 @@ class AppointmentViewController: UIViewController,UITableViewDelegate, UITableVi
     
     @IBOutlet weak var upcoming: UIButton!
     
-    
     @IBOutlet weak var lastAppointment: UIButton!
-    
     
     @IBOutlet weak var startDate: UITextField!
     
@@ -102,45 +109,61 @@ class AppointmentViewController: UIViewController,UITableViewDelegate, UITableVi
     @IBOutlet weak var clearButton: UIButton!
     
     @IBAction func clearFilter(_ sender: Any) {
-        
         startDate.text = ""
         endDate.text = ""
     }
-    
     
     @IBOutlet weak var table: UITableView!
     
     func appointmentCheck()
     {
-        ApiManager.shareInstance.callingAppointmentAPI(completionHandler: {
+        activityContainer.isHidden = false
+        AppointmentApiManager.shareInstance.callingAppointmentAPI(completionHandler: {
             (comingAppointmentHere) in
             if let result = comingAppointmentHere{
                 
                 self.appointmentCall = result
-
-            
+                
                 for values in result{
                     
                     if let appointmentDate = values["appointment_date"] as? String {
-                        self.appointmentDateArray.append(appointmentDate)
-                        self.appointmentDateArray.reverse()
+                        
+                        let apiDateFormatter = DateFormatter()
+                        apiDateFormatter.dateFormat = "yyyy-MM-dd"
+
+                        if let apiDate = apiDateFormatter.date(from: appointmentDate) {
+                            let displayDateFormatter = DateFormatter()
+                            displayDateFormatter.dateFormat = "MMM d, yyyy"
+                            
+                            let formattedDateString = displayDateFormatter.string(from: apiDate)
+                            
+                            self.appointmentDateArray.append(formattedDateString)
+                            
+//                            self.appointmentDateArray.reverse()
+                        } else {
+                            print("Error: Unable to parse date from API response")
+                        }
+                        
+                        
                     }
                     if let appointmentTime = values["appointment_time"] as? String {
                         self.appointmentTimeArray.append(appointmentTime)
-                        self.appointmentTimeArray.reverse()
+//                        self.appointmentTimeArray.reverse()
                     }
                     if let visitReason = values["visit_reason"] as? String {
                         self.visitReasonArray.append(visitReason)
-                        self.visitReasonArray.reverse()
+//                        self.visitReasonArray.reverse()
                     }
                     if let doctorName = values["doctor_name"] as? String {
                         self.doctorNameArray.append(doctorName)
-                        self.doctorNameArray.reverse()
+//                        self.doctorNameArray.reverse()
                     }
                     if let addressOfClient = values["address"] as? String {
                         self.addressOfClientArray.append(addressOfClient)
-                        self.addressOfClientArray.reverse()
+//                        self.addressOfClientArray.reverse()
                     }
+                    
+                    self.activityContainer.isHidden = true
                     
                 }
                 DispatchQueue.main.async{
@@ -169,9 +192,7 @@ class AppointmentViewController: UIViewController,UITableViewDelegate, UITableVi
         formatter.dateStyle = .medium
         formatter.timeStyle = .none
         startDate.text = formatter.string(from: datePickForStart.date)
-        
-
-        
+     
         self.view.endEditing(true)
     }
     
@@ -190,27 +211,42 @@ class AppointmentViewController: UIViewController,UITableViewDelegate, UITableVi
         formatter.dateStyle = .medium
         formatter.timeStyle = .none
         endDate.text = formatter.string(from: datePickForEnd.date)
+       
+        checkingFilteredArray()
         self.view.endEditing(true)
+        
+    }
+    
+    func checkingFilteredArray(){
+    
+        var newArrayCatch = appointmentDateArray.filter { $0 >= startDate.text! && $0 <= endDate.text! }
+//        let newArrayCatch = appointmentDateArray.filter { appointment in
+//            return appointment >= startDate.text! && appointment <= endDate.text!
+//        }
+        
+        print("Appointment Filtered: \(newArrayCatch)")
+        appointmentDateArray.removeAll()
+        
+        appointmentDateArray.append(contentsOf: newArrayCatch)
+        table.reloadData()
+
     }
     
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return appointmentCall.count
+        return appointmentDateArray.count
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! AppointmentTableViewCell
         
-//        let urlAppointmentDate = appointmentCall[indexPath.row]
         cell.dateAndTime.text = appointmentDateArray[indexPath.row]
         cell.time.text = appointmentTimeArray[indexPath.row]
         cell.followUp.text = visitReasonArray[indexPath.row]
         cell.fullName.text = doctorNameArray[indexPath.row]
         cell.addressOfDoctor.text = addressOfClientArray[indexPath.row]
         
-        cell.contentView.layer.cornerRadius = 12
         return cell
     }
     

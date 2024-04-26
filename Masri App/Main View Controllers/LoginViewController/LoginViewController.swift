@@ -82,7 +82,7 @@ class LoginViewController: UIViewController {
     
         if emailUser != "" && passwordUser != ""{
             self.progessView.isHidden = false
-            ApiManager.shareInstance.callingLoginAPI(login: loginUser) { (result) in
+            LoginApiManager.shareInstance.callingLoginAPI(login: loginUser) { (result) in
                 if result{
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {

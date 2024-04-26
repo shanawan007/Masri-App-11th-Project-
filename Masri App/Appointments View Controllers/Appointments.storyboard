@@ -104,15 +104,15 @@
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8qE-La-qVe">
                                 <rect key="frame" x="7" y="231" width="379" height="580"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aFi-7I-h9n">
                                 <rect key="frame" x="8" y="144" width="189" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="AccentColor"/>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.92156862750000001" blue="0.71372549019999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" subtitle="Upcoming Appointments">
-                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lb1-il-4t3">
@@ -126,6 +126,13 @@
                                     <segue destination="Hhn-xO-q4a" kind="showDetail" id="Jg0-T5-CdP"/>
                                 </connections>
                             </button>
+                            <containerView opaque="NO" contentMode="scaleToFill" id="pFy-4u-qFu">
+                                <rect key="frame" x="188" y="404" width="33" height="26"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="RN3-ig-Qq3" kind="embed" id="IUU-5p-3YR"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -141,6 +148,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityContainer" destination="pFy-4u-qFu" id="K6o-Rr-Drl"/>
                         <outlet property="backButton" destination="OCj-qj-ou6" id="KEE-hq-NLn"/>
                         <outlet property="backImage" destination="gUl-lD-xe0" id="bbI-r5-1UU"/>
                         <outlet property="clearButton" destination="TeG-Ds-EsI" id="Y7B-pR-bbS"/>
@@ -169,6 +177,30 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FIy-ce-LQQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2360" y="-167"/>
+        </scene>
+        <!--Fetching View Controller-->
+        <scene sceneID="VVh-FI-IHW">
+            <objects>
+                <viewController storyboardIdentifier="FetchingViewController" id="RN3-ig-Qq3" customClass="FetchingViewController" customModule="Masri_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hXp-dV-RPO">
+                        <rect key="frame" x="0.0" y="0.0" width="33" height="26"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="3Ar-AO-ebC">
+                                <rect key="frame" x="6" y="3" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="VJd-yF-mlF"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="activityProgress" destination="3Ar-AO-ebC" id="cec-I6-jwX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dyG-1G-jZc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1769" y="419"/>
         </scene>
     </scenes>
     <resources>

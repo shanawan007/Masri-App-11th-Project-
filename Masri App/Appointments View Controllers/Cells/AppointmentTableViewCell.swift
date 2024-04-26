@@ -29,10 +29,10 @@ class AppointmentTableViewCell: UITableViewCell {
     }
     override func layoutSubviews() {
         
-        super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 3, right: 0))
-
-        self.backgroundColor = UIColor.black
+//        super.layoutSubviews()
+//        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 3, right: 0))
+//
+//       self.backgroundColor = UIColor.black
 
     }
 }

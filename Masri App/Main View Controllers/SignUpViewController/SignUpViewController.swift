@@ -270,7 +270,7 @@ class SignUpViewController: UIViewController {
         
         let registers = Registeration(first_name: firstnameUser, last_name: lastnameUser, email: emailUser,phone: num, password: passwordUser, gender: selectGender,dob: dobUser, device_token: device_tokens)
         
-        ApiManager.shareInstance.callingRegisterAPI(register: registers, completion: {
+        SignupApiManager.shareInstance.callingRegisterAPI(register: registers, completion: {
             success in
             if success{
                 let alert = UIAlertController(title: "Alert", message: "User Register Successfully", preferredStyle: .alert)

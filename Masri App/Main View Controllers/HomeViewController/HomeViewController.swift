@@ -56,7 +56,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func fetchData() {
         var imageURL:String = "https://masriapi.ssasoft.com/"
         
-        ApiManager.shareInstance.callingPromotionAPI(completionHandler: {
+        PromotionApiManager.shareInstance.callingPromotionAPI(completionHandler: {
             (imageURLComing) in
                 if let imageURLFound = imageURLComing{
                     for found in imageURLFound {

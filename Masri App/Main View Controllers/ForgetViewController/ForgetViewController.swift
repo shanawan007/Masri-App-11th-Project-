@@ -80,7 +80,7 @@ class ForgetViewController: UIViewController {
         let forgetPasswordUser = ForgetModel(username: username!, otp: otp, password: passwordUser)
         
         if passwordUser != ""{
-            ApiManager.shareInstance.callingForgetAPI(forget: forgetPasswordUser, completionHandler: { (result) in
+            ForgetApiManager.shareInstance.callingForgetAPI(forget: forgetPasswordUser, completionHandler: { (result) in
                 if result{
                     DispatchQueue.main.async {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
