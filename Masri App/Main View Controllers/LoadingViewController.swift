@@ -13,8 +13,6 @@ class LoadingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         imageCover.image = UIImage(named: "BackgroundImage")
-        
-        imageCover?.contentMode = .scaleAspectFill
 
     }
     

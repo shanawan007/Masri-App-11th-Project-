@@ -17,6 +17,31 @@ class SignUpViewController: UIViewController {
     
     var device_tokens: String = "123456789"
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.navigationItem.hidesBackButton = true
+        backGround.image = UIImage(named: "BackgroundImage")
+        logoText.image = UIImage(named: "LogoText")
+        
+        firstImage.image = UIImage(named: "strk")
+        lastImage.image = UIImage(named: "strk")
+        emailImage.image = UIImage(named: "strk")
+        
+        passwordImage.image = UIImage(named: "strk")
+        confirmPasswordImage.image = UIImage(named: "strk")
+        signUpTitle.setTitle("SIGN UP", for: .normal)
+        haveAccount.text = "Already have an account?"
+        loginTitle.setTitle("LOGIN", for: .normal)
+        
+        birthDateImage.image = UIImage(named: "DateOfBirthIcon")
+        
+        birthDate.addTarget(self, action: #selector(dateSet), for: .touchDown)
+        
+        datePick.preferredDatePickerStyle = .wheels
+        datePick.datePickerMode = .date
+        
+    }
     
     @IBOutlet weak var backGround: UIImageView!
     
@@ -44,13 +69,10 @@ class SignUpViewController: UIViewController {
     
     @IBOutlet weak var phoneNumberError: UILabel!
     
-    
-    
     @IBOutlet weak var birthDate: UITextField!
     
     @IBOutlet weak var birthDateImage: UIImageView!
     
-
     @IBAction func male(_ sender: Any) {
         
         selectGender = "male"
@@ -63,20 +85,15 @@ class SignUpViewController: UIViewController {
         print(selectGender)
     }
     
-
     @IBOutlet weak var passwordField: UITextField!
 
     @IBOutlet weak var passwordImage: UIImageView!
 
     @IBOutlet weak var passwordError: UILabel!
 
-
     @IBOutlet weak var confirmPasswordField: UITextField!
 
-
     @IBOutlet weak var confirmPasswordImage: UIImageView!
-
-
 
     @IBOutlet weak var confirmPasswordError: UILabel!
 
@@ -118,7 +135,6 @@ class SignUpViewController: UIViewController {
         }
     }
 
-
     @IBAction func emailFieldButton(_ sender: Any) {
         if let emailChange = emailField.text
         {
@@ -131,8 +147,6 @@ class SignUpViewController: UIViewController {
             }
         }
     }
-
-
 
     @IBAction func phoneFieldButton(_ sender: Any) {
         if let phoneChange = phoneField.text
@@ -148,33 +162,6 @@ class SignUpViewController: UIViewController {
     }
 
     @IBOutlet weak var loginTitle: UIButton!
-
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.navigationItem.hidesBackButton = true
-        backGround.image = UIImage(named: "BackgroundImage")
-        logoText.image = UIImage(named: "LogoText")
-        
-        firstImage.image = UIImage(named: "strk")
-        lastImage.image = UIImage(named: "strk")
-        emailImage.image = UIImage(named: "strk")
-        
-        passwordImage.image = UIImage(named: "strk")
-        confirmPasswordImage.image = UIImage(named: "strk")
-        signUpTitle.setTitle("SIGN UP", for: .normal)
-        haveAccount.text = "Already have an account?"
-        loginTitle.setTitle("LOGIN", for: .normal)
-        
-        birthDateImage.image = UIImage(named: "DateOfBirthIcon")
-        
-        birthDate.addTarget(self, action: #selector(dateSet), for: .touchDown)
-        
-        datePick.preferredDatePickerStyle = .wheels
-        datePick.datePickerMode = .date
-        
-    }
     
     @objc func dateSet(){
         let toolbar = UIToolbar()
@@ -185,8 +172,6 @@ class SignUpViewController: UIViewController {
         birthDate.inputAccessoryView = toolbar
         birthDate.inputView = datePick
         
-        
-        
     }
     
     @objc func doneClicked(){
@@ -196,8 +181,6 @@ class SignUpViewController: UIViewController {
         birthDate.text = formatter.string(from: datePick.date)
         
         self.view.endEditing(true)
-        
-        
         
     }
     
@@ -258,7 +241,6 @@ class SignUpViewController: UIViewController {
         
     }
     
-    
     @IBAction func saveButton(_ sender: UIButton) {
         checkingDetails()
         guard let firstnameUser = self.firstNameField.text else {return}
@@ -280,7 +262,7 @@ class SignUpViewController: UIViewController {
                 
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let shareVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-                //                    self.navigationController?.pushViewController(shareVC, animated: true)
+
                 self.modalPresentationStyle = .fullScreen
                 self.present(shareVC, animated: true)
             }
@@ -316,6 +298,7 @@ class SignUpViewController: UIViewController {
         }
         return nil
     }
+    
     func validatePhoneNumber(_ phoneNumber: String) -> String? {
         let phoneRegex = #"^\d{11}$"#
         if phoneNumber.range(of: phoneRegex, options: .regularExpression) == nil {

@@ -136,13 +136,107 @@
 			isa = PBXGroup;
 			children = (
 				240A1CDD2BC007C100362B03 /* OurServices.storyboard */,
-				24D7393C2B9B36930047E477 /* OurServicesViewController.swift */,
-				241AB21C2BB2E41800B9C799 /* FacialViewController.swift */,
-				241AB21E2BB2E42500B9C799 /* BodyViewController.swift */,
+				244069C22BDFFBC100D88685 /* View Controller */,
 				241AB2172BB2E36A00B9C799 /* BodyCells */,
 				241AB2122BB2DFEC00B9C799 /* FacialCells */,
 			);
 			path = "Our Services View Controllers";
+			sourceTree = "<group>";
+		};
+		244069B92BDFF9CC00D88685 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				249E89D82BA8365700D59547 /* LoginModel.swift */,
+				2472E40E2BA49AAA00F642EE /* SignUpModel.swift */,
+				241AB2102BB2D24400B9C799 /* ForgetModel.swift */,
+				241AB2202BB2F3DC00B9C799 /* PromotionModel.swift */,
+				241AF66E2BAC44F6000DB150 /* AppointmentBookModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		244069BA2BDFFA7500D88685 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				24D4DD822B97590200B119E8 /* HomeViewController.swift */,
+			);
+			path = "View Controller";
+			sourceTree = "<group>";
+		};
+		244069BB2BDFFA9B00D88685 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				24C3D73B2B95FB77007BCF3E /* LoginViewController.swift */,
+				2494CCDB2BCEA8EF00D31D6B /* ProgressViewController.swift */,
+			);
+			path = "View Controller";
+			sourceTree = "<group>";
+		};
+		244069BC2BDFFABE00D88685 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				24C3D74C2B960833007BCF3E /* ForgetViewController.swift */,
+			);
+			path = "View Controller";
+			sourceTree = "<group>";
+		};
+		244069BD2BDFFAF800D88685 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				24784B352B9616C0007011FC /* SignUpViewController.swift */,
+			);
+			path = "View Controller";
+			sourceTree = "<group>";
+		};
+		244069BE2BDFFB1F00D88685 /* Privacy View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				24784B372B9617FD007011FC /* PrivacyViewController.swift */,
+			);
+			path = "Privacy View Controller";
+			sourceTree = "<group>";
+		};
+		244069BF2BDFFB2B00D88685 /* Terms View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				24784B392B961809007011FC /* TermsViewController.swift */,
+			);
+			path = "Terms View Controller";
+			sourceTree = "<group>";
+		};
+		244069C02BDFFBA100D88685 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				24DB92322B9A17C0005D8D35 /* SideMenuController.swift */,
+			);
+			path = "View Controller";
+			sourceTree = "<group>";
+		};
+		244069C12BDFFBAB00D88685 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				24F742B32B9A20730014E279 /* SideMenuTable.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		244069C22BDFFBC100D88685 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				24D7393C2B9B36930047E477 /* OurServicesViewController.swift */,
+				241AB21C2BB2E41800B9C799 /* FacialViewController.swift */,
+				241AB21E2BB2E42500B9C799 /* BodyViewController.swift */,
+			);
+			path = "View Controller";
+			sourceTree = "<group>";
+		};
+		244069C32BDFFBD400D88685 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				249E89DF2BA989D200D59547 /* AppointmentViewController.swift */,
+				24B467DB2BD95F4200133D07 /* FetchingViewController.swift */,
+			);
+			path = "View Controller";
 			sourceTree = "<group>";
 		};
 		245259292B975B510063F6E9 /* Cells */ = {
@@ -157,138 +251,70 @@
 		2465D6202BDA9B5700B3614F /* HomeViewController */ = {
 			isa = PBXGroup;
 			children = (
-				2465D6212BDA9B6B00B3614F /* Promotion */,
-				24D4DD822B97590200B119E8 /* HomeViewController.swift */,
+				244069BA2BDFFA7500D88685 /* View Controller */,
+				2465D6212BDA9B6B00B3614F /* PromotionAPI */,
 				245259292B975B510063F6E9 /* Cells */,
 			);
 			path = HomeViewController;
 			sourceTree = "<group>";
 		};
-		2465D6212BDA9B6B00B3614F /* Promotion */ = {
+		2465D6212BDA9B6B00B3614F /* PromotionAPI */ = {
 			isa = PBXGroup;
 			children = (
-				2465D6312BDA9E0F00B3614F /* Model */,
-				2465D6302BDA9E0500B3614F /* Api */,
+				2465D6222BDA9B8200B3614F /* PromotionAPI.swift */,
 			);
-			path = Promotion;
+			path = PromotionAPI;
 			sourceTree = "<group>";
 		};
 		2465D6242BDA9C2400B3614F /* LoginViewController */ = {
 			isa = PBXGroup;
 			children = (
-				24C3D73B2B95FB77007BCF3E /* LoginViewController.swift */,
-				2465D6252BDA9C3700B3614F /* Login */,
+				244069BB2BDFFA9B00D88685 /* View Controller */,
+				2465D6252BDA9C3700B3614F /* LoginAPI */,
 			);
 			path = LoginViewController;
 			sourceTree = "<group>";
 		};
-		2465D6252BDA9C3700B3614F /* Login */ = {
+		2465D6252BDA9C3700B3614F /* LoginAPI */ = {
 			isa = PBXGroup;
 			children = (
-				2465D6332BDA9E5F00B3614F /* Model */,
-				2465D6322BDA9E5700B3614F /* Api */,
+				2465D6262BDA9C5500B3614F /* LoginAPI.swift */,
 			);
-			path = Login;
+			path = LoginAPI;
 			sourceTree = "<group>";
 		};
 		2465D6282BDA9CB300B3614F /* ForgetViewController */ = {
 			isa = PBXGroup;
 			children = (
-				24C3D74C2B960833007BCF3E /* ForgetViewController.swift */,
-				2465D6292BDA9CC200B3614F /* Forget */,
+				244069BC2BDFFABE00D88685 /* View Controller */,
+				2465D6292BDA9CC200B3614F /* ForgetAPI */,
 			);
 			path = ForgetViewController;
 			sourceTree = "<group>";
 		};
-		2465D6292BDA9CC200B3614F /* Forget */ = {
+		2465D6292BDA9CC200B3614F /* ForgetAPI */ = {
 			isa = PBXGroup;
 			children = (
-				2465D6352BDA9E7E00B3614F /* Model */,
-				2465D6342BDA9E7800B3614F /* Api */,
+				2465D62A2BDA9CD300B3614F /* ForgetAPI.swift */,
 			);
-			path = Forget;
+			path = ForgetAPI;
 			sourceTree = "<group>";
 		};
 		2465D62C2BDA9D1500B3614F /* SignUpViewController */ = {
 			isa = PBXGroup;
 			children = (
-				24784B352B9616C0007011FC /* SignUpViewController.swift */,
-				2465D62D2BDA9D2300B3614F /* Signup */,
+				244069BD2BDFFAF800D88685 /* View Controller */,
+				2465D62D2BDA9D2300B3614F /* SignupAPI */,
 			);
 			path = SignUpViewController;
 			sourceTree = "<group>";
 		};
-		2465D62D2BDA9D2300B3614F /* Signup */ = {
-			isa = PBXGroup;
-			children = (
-				2465D6372BDA9E9F00B3614F /* Model */,
-				2465D6362BDA9E9800B3614F /* Api */,
-			);
-			path = Signup;
-			sourceTree = "<group>";
-		};
-		2465D6302BDA9E0500B3614F /* Api */ = {
-			isa = PBXGroup;
-			children = (
-				2465D6222BDA9B8200B3614F /* PromotionAPI.swift */,
-			);
-			path = Api;
-			sourceTree = "<group>";
-		};
-		2465D6312BDA9E0F00B3614F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				241AB2202BB2F3DC00B9C799 /* PromotionModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		2465D6322BDA9E5700B3614F /* Api */ = {
-			isa = PBXGroup;
-			children = (
-				2465D6262BDA9C5500B3614F /* LoginAPI.swift */,
-			);
-			path = Api;
-			sourceTree = "<group>";
-		};
-		2465D6332BDA9E5F00B3614F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				249E89D82BA8365700D59547 /* LoginModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		2465D6342BDA9E7800B3614F /* Api */ = {
-			isa = PBXGroup;
-			children = (
-				2465D62A2BDA9CD300B3614F /* ForgetAPI.swift */,
-			);
-			path = Api;
-			sourceTree = "<group>";
-		};
-		2465D6352BDA9E7E00B3614F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				241AB2102BB2D24400B9C799 /* ForgetModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		2465D6362BDA9E9800B3614F /* Api */ = {
+		2465D62D2BDA9D2300B3614F /* SignupAPI */ = {
 			isa = PBXGroup;
 			children = (
 				2465D62E2BDA9D3800B3614F /* SignupAPI.swift */,
 			);
-			path = Api;
-			sourceTree = "<group>";
-		};
-		2465D6372BDA9E9F00B3614F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				2472E40E2BA49AAA00F642EE /* SignUpModel.swift */,
-			);
-			path = Model;
+			path = SignupAPI;
 			sourceTree = "<group>";
 		};
 		2472E40B2BA49A8200F642EE /* URL */ = {
@@ -303,10 +329,9 @@
 			isa = PBXGroup;
 			children = (
 				249E89DC2BA987E200D59547 /* Appointments.storyboard */,
-				249E89DF2BA989D200D59547 /* AppointmentViewController.swift */,
-				24B467DB2BD95F4200133D07 /* FetchingViewController.swift */,
+				244069C32BDFFBD400D88685 /* View Controller */,
 				24B066BF2BC016500069266A /* Cells */,
-				24F6A0272BDAA0D800AEF08D /* Appointments */,
+				24F6A0272BDAA0D800AEF08D /* AppointmentAPI */,
 			);
 			path = "Appointments View Controllers";
 			sourceTree = "<group>";
@@ -344,6 +369,7 @@
 				24C3D7372B95FB77007BCF3E /* AppDelegate.swift */,
 				24C3D7392B95FB77007BCF3E /* SceneDelegate.swift */,
 				2472E40B2BA49A8200F642EE /* URL */,
+				244069B92BDFF9CC00D88685 /* Model */,
 				24C3D74B2B9606E2007BCF3E /* Main View Controllers */,
 				24DB922D2B9A08BB005D8D35 /* Side Menu View Controllers */,
 				24210AB92B9B35CC0006826F /* Our Services View Controllers */,
@@ -359,14 +385,13 @@
 			isa = PBXGroup;
 			children = (
 				24C3D73D2B95FB77007BCF3E /* Main.storyboard */,
-				2494CCDB2BCEA8EF00D31D6B /* ProgressViewController.swift */,
 				2468F0CF2BBAAB17000BA6C6 /* LoadingViewController.swift */,
 				2465D6202BDA9B5700B3614F /* HomeViewController */,
 				2465D6242BDA9C2400B3614F /* LoginViewController */,
 				2465D6282BDA9CB300B3614F /* ForgetViewController */,
 				2465D62C2BDA9D1500B3614F /* SignUpViewController */,
-				24784B372B9617FD007011FC /* PrivacyViewController.swift */,
-				24784B392B961809007011FC /* TermsViewController.swift */,
+				244069BE2BDFFB1F00D88685 /* Privacy View Controller */,
+				244069BF2BDFFB2B00D88685 /* Terms View Controller */,
 			);
 			path = "Main View Controllers";
 			sourceTree = "<group>";
@@ -375,35 +400,18 @@
 			isa = PBXGroup;
 			children = (
 				2452592F2B978D330063F6E9 /* SideMenu.storyboard */,
-				24DB92322B9A17C0005D8D35 /* SideMenuController.swift */,
-				24F742B32B9A20730014E279 /* SideMenuTable.swift */,
+				244069C02BDFFBA100D88685 /* View Controller */,
+				244069C12BDFFBAB00D88685 /* Cell */,
 			);
 			path = "Side Menu View Controllers";
 			sourceTree = "<group>";
 		};
-		24F6A0272BDAA0D800AEF08D /* Appointments */ = {
-			isa = PBXGroup;
-			children = (
-				24F6A02B2BDAA12F00AEF08D /* Model */,
-				24F6A0282BDAA0F700AEF08D /* API */,
-			);
-			path = Appointments;
-			sourceTree = "<group>";
-		};
-		24F6A0282BDAA0F700AEF08D /* API */ = {
+		24F6A0272BDAA0D800AEF08D /* AppointmentAPI */ = {
 			isa = PBXGroup;
 			children = (
 				24F6A0292BDAA10400AEF08D /* AppointmentAPI.swift */,
 			);
-			path = API;
-			sourceTree = "<group>";
-		};
-		24F6A02B2BDAA12F00AEF08D /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				241AF66E2BAC44F6000DB150 /* AppointmentBookModel.swift */,
-			);
-			path = Model;
+			path = AppointmentAPI;
 			sourceTree = "<group>";
 		};
 		65151208E268E78B9B39D1BC /* Frameworks */ = {

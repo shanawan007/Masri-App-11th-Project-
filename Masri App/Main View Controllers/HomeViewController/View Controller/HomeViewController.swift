@@ -6,36 +6,7 @@ import AlamofireImage
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SideMenuNavigationControllerDelegate {
     
-    
-    
-    @IBOutlet weak var tableOfPromotion: UITableView!
-    
-    @IBOutlet weak var sideButtonLable: UIButton!
-    
-    
-    @IBAction func appointmentHistory(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Appointments", bundle: nil)
-        let shareVC = storyboard.instantiateViewController(withIdentifier: "AppointmentViewController") as! AppointmentViewController
-        shareVC.modalPresentationStyle = .fullScreen
-        self.present(shareVC, animated: true)
-        //        self.navigationController?.pushViewController(shareVC, animated: true)
-        //
-    }
-    
-    @IBOutlet weak var appointmentLable: UIButton!
-    
-    
-    @IBAction func appointmentBook(_ sender: Any) {
-    }
-    
-    
-    @IBOutlet weak var bookAppointmentLable: UIButton!
-    
-    
     var promotions: [PromotionModel] = []
-    
-    var promotionImage: [String] = []
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,38 +24,57 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         fetchData()
         
     }
-    func fetchData() {
-        var imageURL:String = "https://masriapi.ssasoft.com/"
+    
+    @IBOutlet weak var tableOfPromotion: UITableView!
+    
+    @IBOutlet weak var sideButtonLable: UIButton!
+    
+    
+    @IBAction func appointmentHistory(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Appointments", bundle: nil)
+        let shareVC = storyboard.instantiateViewController(withIdentifier: "AppointmentViewController") as! AppointmentViewController
+        shareVC.modalPresentationStyle = .fullScreen
+        self.present(shareVC, animated: true)
+    }
+    
+    @IBOutlet weak var appointmentLable: UIButton!
+    
+    
+    @IBAction func appointmentBook(_ sender: Any) {
         
+    let urlOpen = URL(string: "https://healow.com/apps/provider/haitham-masri-3324")
+    UIApplication.shared.open(urlOpen!, options: [:])
+    }
+    
+    @IBOutlet weak var bookAppointmentLable: UIButton!
+    
+    func fetchData() {
         PromotionApiManager.shareInstance.callingPromotionAPI(completionHandler: {
             (imageURLComing) in
-                if let imageURLFound = imageURLComing{
-                    for found in imageURLFound {
-                        let fullURL = imageURL + found
-                        self.promotionImage.append(fullURL)
+            if let imageURLFound = imageURLComing{
+                for found in imageURLFound {
+                    self.promotions.append(PromotionModel(imageURL: found.imageURL))
                     }
-                    DispatchQueue.main.async{
-                        self.tableOfPromotion.reloadData()
-                    }
+                DispatchQueue.main.async{
+                    self.tableOfPromotion.reloadData()
                 }
-            else{
-                print("No")
+            } else {
+                    print("No")
             }
-            })
+        })
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return promotionImage.count
+        return promotions.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableOfPromotion.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! HomeViewCell
         
-        let promotion = promotionImage[indexPath.row]
-        if let url = URL(string: promotion) {
-            cell.picturesOnDisplay.af.setImage(withURL: url)
-            
+        if let promotion = promotions[indexPath.row] as? PromotionModel{
+            let url = URL(string: promotion.imageURL)
+            cell.picturesOnDisplay.af.setImage(withURL: url!)
         }
         cell.contentView.layer.cornerRadius = 12
         return cell

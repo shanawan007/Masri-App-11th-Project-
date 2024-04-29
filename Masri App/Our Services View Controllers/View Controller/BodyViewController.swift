@@ -9,8 +9,6 @@ import UIKit
 
 class BodyViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var table: UITableView!
-    
     var imagesForBodyContainer = [String]()
     
     override func viewDidLoad() {
@@ -23,6 +21,8 @@ class BodyViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         fetchingImage()
         self.table.backgroundColor = UIColor.black
     }
+    
+    @IBOutlet weak var table: UITableView!
     
     func fetchingImage(){
         imagesForBodyContainer = ["bodyImage1","bodyImage2","bodyImage3","bodyImage4"]

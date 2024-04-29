@@ -173,7 +173,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nKS-bc-ZQq">
-                                <rect key="frame" x="159" y="432" width="55" height="36"/>
+                                <rect key="frame" x="157" y="432" width="55" height="36"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <segue destination="UJU-IK-Ycb" kind="embed" id="4uk-re-IEH"/>
@@ -237,6 +237,9 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Book an appointments">
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="appointmentBook:" destination="fKc-0c-l5T" eventType="touchUpInside" id="LEG-cN-gSi"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3YR-v9-BYp">
                                 <rect key="frame" x="117" y="113" width="159" height="35"/>

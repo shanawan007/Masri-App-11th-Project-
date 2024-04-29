@@ -10,13 +10,23 @@ import SideMenu
 class SideMenuController: UIViewController{
     
     var user = UserDefaults.standard.string(forKey: "userEmail")
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        settingImage.image = UIImage(named: "dateTime")
+        settingImage2.image = UIImage(named: "dateTime")
+        changePasswordImage.image = UIImage(named: "changePassword")
+        logoutImage.image = UIImage(named: "Logout")
+        self.navigationItem.titleView?.isHidden = true
+        
+        userName.text = user
+    }
+    
     @IBOutlet weak var userName: UILabel!
     
     @IBOutlet weak var settingImage: UIImageView!
     
-    
     @IBOutlet weak var NewsAndPromotion: UIButton!
-    
     
     @IBAction func newsAndPromotionAction(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -26,12 +36,9 @@ class SideMenuController: UIViewController{
         
     }
     
-    
     @IBOutlet weak var settingImage2: UIImageView!
     
-    
     @IBOutlet weak var OurServices: UIButton!
-    
     
     @IBAction func ourServiceButton(_ sender: Any) {
         let storyboard2 = UIStoryboard(name: "OurServices", bundle: nil)
@@ -41,20 +48,15 @@ class SideMenuController: UIViewController{
 
     }
     
-    
     @IBOutlet weak var changePasswordImage: UIImageView!
     
-    
-    
     @IBOutlet weak var changePasswordLabel: UIButton!
-    
     
     @IBAction func changePassword(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let shareVC = storyboard.instantiateViewController(withIdentifier: "ForgetViewController") as! ForgetViewController
         shareVC.modalPresentationStyle = .fullScreen
         self.present(shareVC, animated: true)
-        //self.navigationController?.pushViewController(shareVC, animated: true)
     }
     
     @IBOutlet weak var logoutImage: UIImageView!
@@ -68,17 +70,6 @@ class SideMenuController: UIViewController{
         shareVC.modalPresentationStyle = .fullScreen
         self.present(shareVC, animated: true)
 
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        settingImage.image = UIImage(named: "dateTime")
-        settingImage2.image = UIImage(named: "dateTime")
-        changePasswordImage.image = UIImage(named: "changePassword")
-        logoutImage.image = UIImage(named: "Logout")
-        self.navigationItem.titleView?.isHidden = true
-        
-        userName.text = user
     }
     
 }

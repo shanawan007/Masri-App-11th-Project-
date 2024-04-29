@@ -9,14 +9,26 @@ import UIKit
 
 class ForgetViewController: UIViewController {
 
-    @IBOutlet weak var ForgetTitle: UILabel!
+    var otp: String = "123142312312"
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        ForgetTitle.text = "Password Reset"
+        cancelTitle.setTitle("Cancel", for: .normal)
+        cancelTitle.layer.cornerRadius = 5
+        nextTitle.setTitle("Next", for: .normal)
+        nextTitle.layer.cornerRadius = 5
+        self.navigationItem.hidesBackButton = true
+        newPassword.isHidden = true
+        confirmPassword.isHidden = true
+        submitBtn.isHidden = true
+    }
+    
+    @IBOutlet weak var ForgetTitle: UILabel!
     
     @IBOutlet weak var emailField: UITextField!
     
     @IBOutlet weak var emailErrorTitle: UILabel!
-    
-    var otp: String = "123142312312"
     
     @IBAction func emailErr(_ sender: Any) {
         if let emailChange = emailField.text
@@ -34,13 +46,12 @@ class ForgetViewController: UIViewController {
         
     }
     
-    
     @IBAction func cancelButton(_ sender: Any) {
         dismiss(animated: true)
-        
     }
     
     @IBOutlet weak var cancelTitle: UIButton!
+    
     @IBOutlet weak var nextTitle: UIButton!
 
     @IBOutlet weak var newPassword: UITextField!
@@ -102,57 +113,35 @@ class ForgetViewController: UIViewController {
         if emailField.text == userFound {
             let alert = UIAlertController(title: "Alert!", message: "User Found", preferredStyle: .alert)
             
-            
             let cancel = UIAlertAction(title: "Cancel", style: .default, handler: { alert in
                 self.newPassword.isHidden = false
                 self.confirmPassword.isHidden = false
                 self.submitBtn.isHidden = false
             })
-                
+            
             alert.addAction(cancel)
             
-            
-                
             emailField.isHidden = true
             cancelTitle.isHidden = true
             nextTitle.isHidden = true
-                
+            
             present(alert, animated: true, completion: nil)
-            
-            
             
         }
         else{
             let alert = UIAlertController(title: "Alert!", message: "Wrong Credentials", preferredStyle: .alert)
+            
             let cancel = UIAlertAction(title: "Cancel", style: .default)
             
             alert.addAction(cancel)
+            
             present(alert, animated: true, completion: nil)
         }
         
     }
     
-    
     @IBOutlet weak var submitBtn: UIButton!
-    
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        ForgetTitle.text = "Password Reset"
-        cancelTitle.setTitle("Cancel", for: .normal)
-        cancelTitle.layer.cornerRadius = 5
-        nextTitle.setTitle("Next", for: .normal)
-        nextTitle.layer.cornerRadius = 5
-        self.navigationItem.hidesBackButton = true
-        newPassword.isHidden = true
-        confirmPassword.isHidden = true
-        submitBtn.isHidden = true
-    }
-
-    
-    
-    
+   
     func checkingDetails(){
         
         if emailField.text == "" || emailField.text!.count == 0 {
@@ -163,6 +152,7 @@ class ForgetViewController: UIViewController {
             present(alert, animated: true, completion: nil)
         }
     }
+    
     func validateEmail(_ email: String) -> String? {
         var emailFirstError = "Please enter a valid email address"
         let emailRegex = #"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"#

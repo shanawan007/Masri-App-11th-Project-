@@ -11,16 +11,43 @@ import Alamofire
 class LoginViewController: UIViewController {
 
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        backGround.image = UIImage(named: "BackgroundImage")
+        logoText.image = UIImage(named: "LogoText")
+        haveAccount.text = "Don't have an account?"
+        let attributedString = NSAttributedString(string: "Forget Password?", attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+        forgetTitle.setAttributedTitle(attributedString, for: .normal)
+        
+        login.setTitle("Login", for: .normal)
+        login.layer.cornerRadius = 5
+        
+        checkButton.setImage(UIImage(named: "unchecked"), for: .normal)
+        checkButton.setTitle("", for: .normal)
+        rememberTitle.text = "Remember Me"
+        appleTitle.setTitle("Continue with Apple", for: .normal)
+        appleIcon.image = UIImage(named: "appleIcon")
+        appleTitle.layer.cornerRadius = 5
+        signUpTitle.setTitle("Sign Up", for: .normal)
+        
+        termsTitle.setTitle("Terms of Use", for: .normal)
+        let attributedStringForTerms = NSAttributedString(string: "Terms of Use", attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+        termsTitle.setAttributedTitle(attributedStringForTerms, for: .normal)
+        let attributedStringForPrivacy = NSAttributedString(string: "Privacy Policy", attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+        privacyTitle.setAttributedTitle(attributedStringForPrivacy, for: .normal)
+        
+        self.navigationItem.hidesBackButton = true
+        progessView.isHidden = true
+        
+    }
+    
     @IBOutlet weak var backGround: UIImageView!
     
     @IBOutlet weak var logoText: UIImageView!
     
-    
     @IBOutlet weak var userEmail: UITextField!
     
     @IBOutlet weak var emailError: UILabel!
-    
-    var userLoggedIn = false
     
     @IBAction func emailFieldType(_ sender: Any) {
         if let emailChange = userEmail.text
@@ -34,9 +61,6 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
-    
-    
     
     @IBOutlet weak var password: UITextField!
     
@@ -57,10 +81,11 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var rememberTitle: UILabel!
     
     @IBOutlet weak var forgetTitle: UIButton!
+    
     @IBAction func forgetPassword(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let shareVC = storyboard.instantiateViewController(withIdentifier: "ForgetViewController") as! ForgetViewController
-//        self.navigationController?.pushViewController(shareVC, animated: true)
+        
         shareVC.modalPresentationStyle = .fullScreen
         self.present(shareVC, animated: true)
         
@@ -70,7 +95,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var login: UIButton!
     
     @IBAction func loginButton(_ sender: Any) {
-        
         
         guard let emailUser = userEmail.text else { return }
         guard let passwordUser = password.text else { return }
@@ -119,9 +143,7 @@ class LoginViewController: UIViewController {
         
     }
     
-    
     @IBOutlet weak var appleIcon: UIImageView!
-    
     
     @IBOutlet weak var haveAccount: UILabel!
     
@@ -136,7 +158,6 @@ class LoginViewController: UIViewController {
         
     }
     
-    
     @IBOutlet weak var termsTitle: UIButton!
     
     @IBAction func terms(_ sender: Any) {
@@ -145,9 +166,7 @@ class LoginViewController: UIViewController {
         self.navigationController?.pushViewController(shareVC, animated: true)
     }
 
-    
     @IBOutlet weak var privacyTitle: UIButton!
-    
     
     @IBAction func PrivacyPolicy(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -155,40 +174,7 @@ class LoginViewController: UIViewController {
         self.navigationController?.pushViewController(shareVC, animated: true)
     }
     
-    
-    
     @IBOutlet weak var progessView: UIView!
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        backGround.image = UIImage(named: "BackgroundImage")
-        logoText.image = UIImage(named: "LogoText")
-        haveAccount.text = "Don't have an account?"
-        let attributedString = NSAttributedString(string: "Forget Password?", attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
-        forgetTitle.setAttributedTitle(attributedString, for: .normal)
-        
-        login.setTitle("Login", for: .normal)
-        login.layer.cornerRadius = 5
-        
-        checkButton.setImage(UIImage(named: "unchecked"), for: .normal)
-        checkButton.setTitle("", for: .normal)
-        rememberTitle.text = "Remember Me"
-        appleTitle.setTitle("Continue with Apple", for: .normal)
-        appleIcon.image = UIImage(named: "appleIcon")
-        appleTitle.layer.cornerRadius = 5
-        signUpTitle.setTitle("Sign Up", for: .normal)
-        
-        termsTitle.setTitle("Terms of Use", for: .normal)
-        let attributedStringForTerms = NSAttributedString(string: "Terms of Use", attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
-        termsTitle.setAttributedTitle(attributedStringForTerms, for: .normal)
-        let attributedStringForPrivacy = NSAttributedString(string: "Privacy Policy", attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
-        privacyTitle.setAttributedTitle(attributedStringForPrivacy, for: .normal)
-        
-        self.navigationItem.hidesBackButton = true
-        progessView.isHidden = true
-        
-    }
     
     func validateEmail(_ email: String) -> String? {
         var emailFirstError = "Please enter a valid email address"

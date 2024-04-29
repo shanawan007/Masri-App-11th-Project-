@@ -91,7 +91,7 @@
                                     <color key="baseForegroundColor" systemColor="systemRedColor"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="clearFilter:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="dat-RR-PKh"/>
+                                    <action selector="clearFilterWithVal:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="BNM-O5-h3f"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NFS-N8-As7">
@@ -160,7 +160,7 @@
                         <outlet property="menuButton" destination="Lb1-il-4t3" id="JaR-Vx-JsI"/>
                         <outlet property="startDate" destination="oiU-49-lDx" id="CT2-a8-LKj"/>
                         <outlet property="startDateCalender" destination="NFS-N8-As7" id="640-Wa-N1J"/>
-                        <outlet property="table" destination="8qE-La-qVe" id="2hL-In-ieO"/>
+                        <outlet property="table" destination="8qE-La-qVe" id="0z7-Kv-LJH"/>
                         <outlet property="upcoming" destination="aFi-7I-h9n" id="cO3-P9-yVA"/>
                         <outlet property="www" destination="4cQ-Bx-Ec3" id="lwb-Bo-IU7"/>
                         <outlet property="wwwLable" destination="nmB-aQ-fVY" id="AQR-W0-GUW"/>

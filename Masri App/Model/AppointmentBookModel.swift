@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Appointment: Encodable{
+struct AppointmentResponse: Encodable{
     var first_name: String
     var last_name: String
     var email: String
@@ -30,20 +30,22 @@ struct Appointment: Encodable{
     var address: String    
 }
 
-struct AppointmentDate: Encodable{
+
+struct AppointmentRequest: Encodable{
+    
     var appointment_date: String
-}
-struct AppointmentTime: Encodable{
     var appointment_time: String
-}
-struct AppointmentVisit: Encodable{
     var visit_reason: String
-}
-struct AppointmentDoctor: Encodable{
     var doctor_name: String
-}
-struct AppointmentAddress: Encodable{
     var address: String
+    
+    init(appointment_date: String, appointment_time: String, visit_reason: String, doctor_name: String, address: String) {
+        self.appointment_date = appointment_date
+        self.appointment_time = appointment_time
+        self.visit_reason = visit_reason
+        self.doctor_name = doctor_name
+        self.address = address
+    }
 }
 
 

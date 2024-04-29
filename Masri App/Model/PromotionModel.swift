@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PromotionModel{
+struct PromotionModel: Encodable{
     
     var imageURL: String
 }

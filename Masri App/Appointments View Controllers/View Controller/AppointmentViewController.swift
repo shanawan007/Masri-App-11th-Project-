@@ -11,24 +11,12 @@ import Alamofire
 
 class AppointmentViewController: UIViewController,UITableViewDelegate, UITableViewDataSource,SideMenuNavigationControllerDelegate {
    
+    @IBOutlet weak var table: UITableView!
+    
     let datePickForStart = UIDatePicker()
     let datePickForEnd = UIDatePicker()
     
-    var appointmentBook : [Appointment]?
-    var appointmentCall: [[String: Any]] = []
-    var appointmentResultReverse: [[String: Any]] = []
-    var appointmentDateArray = [String]()
-    var appointmentTimeArray = [String]()
-    var visitReasonArray = [String]()
-    var doctorNameArray = [String]()
-    var addressOfClientArray = [String]()
-    
-    var firstDate: String = ""
-    var secondDate: String = ""
-    
-    var firstResult : [[String: Any]] = []
-    @IBOutlet weak var activityContainer: UIView!
-    
+    var appointmentModelComing: [AppointmentRequest] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +61,8 @@ class AppointmentViewController: UIViewController,UITableViewDelegate, UITableVi
         appointmentCheck()
         
     }
+   
+    @IBOutlet weak var activityContainer: UIView!
     
     @IBOutlet weak var backImage: UIImageView!
     
@@ -86,9 +76,7 @@ class AppointmentViewController: UIViewController,UITableViewDelegate, UITableVi
     
     @IBOutlet weak var instaPic: UIImageView!
     
-    
     @IBOutlet weak var instaLink: UILabel!
-    
     
     @IBOutlet weak var www: UIImageView!
     
@@ -108,75 +96,43 @@ class AppointmentViewController: UIViewController,UITableViewDelegate, UITableVi
     
     @IBOutlet weak var clearButton: UIButton!
     
-    @IBAction func clearFilter(_ sender: Any) {
+    @IBAction func clearFilter(val sender: Any) {
         startDate.text = ""
         endDate.text = ""
+        
+        appointmentCheck()
+        DispatchQueue.main.async {
+            self.table.reloadData()
+        }
+        
     }
     
-    @IBOutlet weak var table: UITableView!
-    
     func appointmentCheck()
-    {
-        activityContainer.isHidden = false
-        AppointmentApiManager.shareInstance.callingAppointmentAPI(completionHandler: {
-            (comingAppointmentHere) in
-            if let result = comingAppointmentHere{
-                
-                self.appointmentCall = result
-                
-                for values in result{
+        {
+            activityContainer.isHidden = false
+            AppointmentApiManager.shareInstance.callingAppointmentAPI(completionHandler: {
+                (result) in
+                if let found = result {
                     
-                    if let appointmentDate = values["appointment_date"] as? String {
-                        
+                    for appointment in found{
                         let apiDateFormatter = DateFormatter()
                         apiDateFormatter.dateFormat = "yyyy-MM-dd"
 
-                        if let apiDate = apiDateFormatter.date(from: appointmentDate) {
-                            let displayDateFormatter = DateFormatter()
-                            displayDateFormatter.dateFormat = "MMM d, yyyy"
-                            
-                            let formattedDateString = displayDateFormatter.string(from: apiDate)
-                            
-                            self.appointmentDateArray.append(formattedDateString)
-                            
-//                            self.appointmentDateArray.reverse()
-                        } else {
-                            print("Error: Unable to parse date from API response")
-                        }
-                        
-                        
+                        let apiDate = apiDateFormatter.date(from: appointment.appointment_date)
+                        let displayDateFormatter = DateFormatter()
+                        displayDateFormatter.dateFormat = "MMM d, yyyy"
+                        let formattedDateString = displayDateFormatter.string(from: apiDate!)
+                        self.appointmentModelComing.append(AppointmentRequest(appointment_date: formattedDateString, appointment_time: appointment.appointment_time, visit_reason: appointment.visit_reason, doctor_name: appointment.doctor_name, address: appointment.address))
                     }
-                    if let appointmentTime = values["appointment_time"] as? String {
-                        self.appointmentTimeArray.append(appointmentTime)
-//                        self.appointmentTimeArray.reverse()
+                   
+                    DispatchQueue.main.async {
+                        self.table.reloadData()
                     }
-                    if let visitReason = values["visit_reason"] as? String {
-                        self.visitReasonArray.append(visitReason)
-//                        self.visitReasonArray.reverse()
                     }
-                    if let doctorName = values["doctor_name"] as? String {
-                        self.doctorNameArray.append(doctorName)
-//                        self.doctorNameArray.reverse()
-                    }
-                    if let addressOfClient = values["address"] as? String {
-                        self.addressOfClientArray.append(addressOfClient)
-//                        self.addressOfClientArray.reverse()
-                    }
-                    
-                    self.activityContainer.isHidden = true
-                    
-                }
-                DispatchQueue.main.async{
-                    self.table.reloadData()
-                }
-            }
-            else{
-                print("Not here")
-            }
-        })
-    }
-    
-    
+                self.activityContainer.isHidden = true
+            })
+        }
+
     @objc func dateSetForStart(){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
@@ -218,34 +174,34 @@ class AppointmentViewController: UIViewController,UITableViewDelegate, UITableVi
     }
     
     func checkingFilteredArray(){
-    
-        var newArrayCatch = appointmentDateArray.filter { $0 >= startDate.text! && $0 <= endDate.text! }
-//        let newArrayCatch = appointmentDateArray.filter { appointment in
-//            return appointment >= startDate.text! && appointment <= endDate.text!
-//        }
         
-        print("Appointment Filtered: \(newArrayCatch)")
-        appointmentDateArray.removeAll()
-        
-        appointmentDateArray.append(contentsOf: newArrayCatch)
+        let startDateText = startDate.text!
+        let endDateText = endDate.text!
+        if startDateText != "" && endDateText != "" {
+            let newArray = appointmentModelComing.filter { appointment in
+                return appointment.appointment_date >= startDateText && appointment.appointment_date <= endDateText
+            }
+            appointmentModelComing = newArray
+        }
         table.reloadData()
 
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return appointmentDateArray.count
+        return appointmentModelComing.count
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! AppointmentTableViewCell
         
-        cell.dateAndTime.text = appointmentDateArray[indexPath.row]
-        cell.time.text = appointmentTimeArray[indexPath.row]
-        cell.followUp.text = visitReasonArray[indexPath.row]
-        cell.fullName.text = doctorNameArray[indexPath.row]
-        cell.addressOfDoctor.text = addressOfClientArray[indexPath.row]
+        if let appointment = appointmentModelComing[indexPath.row] as? AppointmentRequest{
+            cell.dateAndTime.text = appointment.appointment_date
+            cell.time.text = appointment.appointment_time
+            cell.followUp.text = appointment.visit_reason
+            cell.fullName.text = appointment.doctor_name
+            cell.addressOfDoctor.text = appointment.address
+        }
         
         return cell
     }

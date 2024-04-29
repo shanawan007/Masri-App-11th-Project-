@@ -11,19 +11,18 @@ import Alamofire
 
 struct PromotionApiManager{
     static let shareInstance = PromotionApiManager()
-    func callingPromotionAPI(completionHandler: @escaping ([String]?) -> Void){
-        AF.request(promotion_url, method: .get).responseJSON { response in
+    func callingPromotionAPI(completionHandler: @escaping ([PromotionModel]?) -> Void){
+        AF.request(promotion_url, method: .get, parameters: nil, encoding: JSONEncoding.default).responseJSON { response in
             switch response.result {
             case .success(let data):
                 if let json = data as? [String: Any]
                 {
                     let promotionJSON = json["promotions"] as? [[String: Any]]
-                    var imageURL = [String]()
+                    var imageURL = "https://masriapi.ssasoft.com/"
                     for promotion in promotionJSON!{
-                        if let imagesURL = promotion["image"] as? String {
-                            imageURL.append(imagesURL)
-                        }
-                        completionHandler(imageURL)
+                        let images = promotion["image"] as? String
+                        let sentPromotion: [PromotionModel] = [PromotionModel(imageURL: imageURL + images!)]
+                        completionHandler(sentPromotion)
                     }
                 }
                 else{
