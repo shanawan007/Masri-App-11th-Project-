@@ -190,6 +190,10 @@ class SignUpViewController: UIViewController {
         guard let dobUser = self.birthDate.text else {return}
         guard let num = self.phoneField.text else {return}
         
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let shareVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+        
+        
         let registers = Registeration(first_name: firstnameUser, last_name: lastnameUser, email: emailUser,phone: num, password: passwordUser, gender: selectGender,dob: dobUser, device_token: device_tokens)
         self.activityView.isHidden = false
         
@@ -197,17 +201,17 @@ class SignUpViewController: UIViewController {
             SignupApiManager.shareInstance.callingRegisterAPI(register: registers, completion: {
                 success in
                 if success{
-                    let alert = UIAlertController(title: "Alert", message: "User Register Successfully", preferredStyle: .alert)
-                    let cancel = UIAlertAction(title: "Cancel", style: .default)
-                    alert.addAction(cancel)
-                    self.present(alert, animated: true, completion: .none)
+//                    let alert = UIAlertController(title: "Alert", message: "User Register Successfully", preferredStyle: .alert)
+//                    let cancel = UIAlertAction(title: "Cancel", style: .default)
+//                    alert.addAction(cancel)
+//                    self.present(alert, animated: true, completion: nil)
                     
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let shareVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        shareVC.modalPresentationStyle = .fullScreen
+                        self.present(shareVC, animated: true)
+                    }
                     
                     self.activityView.isHidden = true
-                    self.modalPresentationStyle = .fullScreen
-                    self.present(shareVC, animated: true)
                 }
                 else{
                     let alert = UIAlertController(title: "Alert", message: "Email Found, Please enter new email", preferredStyle: .alert)
