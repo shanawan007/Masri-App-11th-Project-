@@ -30,6 +30,8 @@
 		24784B382B9617FD007011FC /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24784B372B9617FD007011FC /* PrivacyViewController.swift */; };
 		24784B3A2B961809007011FC /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24784B392B961809007011FC /* TermsViewController.swift */; };
 		2494CCDC2BCEA8EF00D31D6B /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2494CCDB2BCEA8EF00D31D6B /* ProgressViewController.swift */; };
+		24999A9B2BE1375A00828B41 /* activityOnForgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24999A9A2BE1375A00828B41 /* activityOnForgetViewController.swift */; };
+		24999A9D2BE13AE900828B41 /* activitySignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24999A9C2BE13AE900828B41 /* activitySignupViewController.swift */; };
 		249E89D92BA8365700D59547 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249E89D82BA8365700D59547 /* LoginModel.swift */; };
 		249E89DB2BA8501100D59547 /* UrlFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249E89DA2BA8501100D59547 /* UrlFile.swift */; };
 		249E89DD2BA987E200D59547 /* Appointments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 249E89DC2BA987E200D59547 /* Appointments.storyboard */; };
@@ -77,6 +79,8 @@
 		24784B372B9617FD007011FC /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 		24784B392B961809007011FC /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		2494CCDB2BCEA8EF00D31D6B /* ProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewController.swift; sourceTree = "<group>"; };
+		24999A9A2BE1375A00828B41 /* activityOnForgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = activityOnForgetViewController.swift; sourceTree = "<group>"; };
+		24999A9C2BE13AE900828B41 /* activitySignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = activitySignupViewController.swift; sourceTree = "<group>"; };
 		249E89D82BA8365700D59547 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		249E89DA2BA8501100D59547 /* UrlFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlFile.swift; sourceTree = "<group>"; };
 		249E89DC2BA987E200D59547 /* Appointments.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Appointments.storyboard; sourceTree = "<group>"; };
@@ -176,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				24C3D74C2B960833007BCF3E /* ForgetViewController.swift */,
+				24999A9A2BE1375A00828B41 /* activityOnForgetViewController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -184,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				24784B352B9616C0007011FC /* SignUpViewController.swift */,
+				24999A9C2BE13AE900828B41 /* activitySignupViewController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -317,12 +323,21 @@
 			path = SignupAPI;
 			sourceTree = "<group>";
 		};
-		2472E40B2BA49A8200F642EE /* URL */ = {
+		2472E40B2BA49A8200F642EE /* Base URL */ = {
 			isa = PBXGroup;
 			children = (
 				249E89DA2BA8501100D59547 /* UrlFile.swift */,
 			);
-			path = URL;
+			path = "Base URL";
+			sourceTree = "<group>";
+		};
+		24999AA02BE13F1600828B41 /* Swift Files */ = {
+			isa = PBXGroup;
+			children = (
+				2472E40B2BA49A8200F642EE /* Base URL */,
+				244069B92BDFF9CC00D88685 /* Model */,
+			);
+			path = "Swift Files";
 			sourceTree = "<group>";
 		};
 		249E89DE2BA989A800D59547 /* Appointments View Controllers */ = {
@@ -368,8 +383,7 @@
 			children = (
 				24C3D7372B95FB77007BCF3E /* AppDelegate.swift */,
 				24C3D7392B95FB77007BCF3E /* SceneDelegate.swift */,
-				2472E40B2BA49A8200F642EE /* URL */,
-				244069B92BDFF9CC00D88685 /* Model */,
+				24999AA02BE13F1600828B41 /* Swift Files */,
 				24C3D74B2B9606E2007BCF3E /* Main View Controllers */,
 				24DB922D2B9A08BB005D8D35 /* Side Menu View Controllers */,
 				24210AB92B9B35CC0006826F /* Our Services View Controllers */,
@@ -390,8 +404,8 @@
 				2465D6242BDA9C2400B3614F /* LoginViewController */,
 				2465D6282BDA9CB300B3614F /* ForgetViewController */,
 				2465D62C2BDA9D1500B3614F /* SignUpViewController */,
-				244069BE2BDFFB1F00D88685 /* Privacy View Controller */,
 				244069BF2BDFFB2B00D88685 /* Terms View Controller */,
+				244069BE2BDFFB1F00D88685 /* Privacy View Controller */,
 			);
 			path = "Main View Controllers";
 			sourceTree = "<group>";
@@ -564,6 +578,7 @@
 				249E89D92BA8365700D59547 /* LoginModel.swift in Sources */,
 				2494CCDC2BCEA8EF00D31D6B /* ProgressViewController.swift in Sources */,
 				24F6A02A2BDAA10400AEF08D /* AppointmentAPI.swift in Sources */,
+				24999A9B2BE1375A00828B41 /* activityOnForgetViewController.swift in Sources */,
 				24784B382B9617FD007011FC /* PrivacyViewController.swift in Sources */,
 				24F742B42B9A20730014E279 /* SideMenuTable.swift in Sources */,
 				2465D62B2BDA9CD300B3614F /* ForgetAPI.swift in Sources */,
@@ -581,6 +596,7 @@
 				24784B3A2B961809007011FC /* TermsViewController.swift in Sources */,
 				241AB2212BB2F3DC00B9C799 /* PromotionModel.swift in Sources */,
 				2465D62F2BDA9D3800B3614F /* SignupAPI.swift in Sources */,
+				24999A9D2BE13AE900828B41 /* activitySignupViewController.swift in Sources */,
 				241AB21F2BB2E42500B9C799 /* BodyViewController.swift in Sources */,
 				2468F0D02BBAAB17000BA6C6 /* LoadingViewController.swift in Sources */,
 				24C3D74D2B960833007BCF3E /* ForgetViewController.swift in Sources */,

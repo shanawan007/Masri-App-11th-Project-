@@ -22,13 +22,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         appointmentLable.layer.cornerRadius = 5
         bookAppointmentLable.layer.cornerRadius = 5
         fetchData()
-        
     }
     
     @IBOutlet weak var tableOfPromotion: UITableView!
     
     @IBOutlet weak var sideButtonLable: UIButton!
-    
     
     @IBAction func appointmentHistory(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Appointments", bundle: nil)
@@ -38,7 +36,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBOutlet weak var appointmentLable: UIButton!
-    
     
     @IBAction func appointmentBook(_ sender: Any) {
         
@@ -64,10 +61,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         })
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return promotions.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableOfPromotion.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! HomeViewCell
@@ -80,6 +77,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
         
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         140
         

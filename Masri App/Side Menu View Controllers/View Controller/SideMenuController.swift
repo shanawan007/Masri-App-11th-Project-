@@ -9,8 +9,6 @@ import UIKit
 import SideMenu
 class SideMenuController: UIViewController{
     
-    var user = UserDefaults.standard.string(forKey: "userEmail")
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         settingImage.image = UIImage(named: "dateTime")
@@ -19,10 +17,7 @@ class SideMenuController: UIViewController{
         logoutImage.image = UIImage(named: "Logout")
         self.navigationItem.titleView?.isHidden = true
         
-        userName.text = user
     }
-    
-    @IBOutlet weak var userName: UILabel!
     
     @IBOutlet weak var settingImage: UIImageView!
     
@@ -53,10 +48,14 @@ class SideMenuController: UIViewController{
     @IBOutlet weak var changePasswordLabel: UIButton!
     
     @IBAction func changePassword(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let shareVC = storyboard.instantiateViewController(withIdentifier: "ForgetViewController") as! ForgetViewController
-        shareVC.modalPresentationStyle = .fullScreen
-        self.present(shareVC, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let shareVC = storyboard.instantiateViewController(withIdentifier: "ForgetViewController") as! ForgetViewController
+            shareVC.modalPresentationStyle = .fullScreen
+            self.present(shareVC, animated: true)
+            
+        }
     }
     
     @IBOutlet weak var logoutImage: UIImageView!
@@ -65,10 +64,14 @@ class SideMenuController: UIViewController{
     
     @IBAction func logout(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: "userEmail")
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let shareVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-        shareVC.modalPresentationStyle = .fullScreen
-        self.present(shareVC, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let shareVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            shareVC.modalPresentationStyle = .fullScreen
+            self.present(shareVC, animated: true)
+        }
+        
 
     }
     

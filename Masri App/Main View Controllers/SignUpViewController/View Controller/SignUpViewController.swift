@@ -30,9 +30,7 @@ class SignUpViewController: UIViewController {
         
         passwordImage.image = UIImage(named: "strk")
         confirmPasswordImage.image = UIImage(named: "strk")
-        signUpTitle.setTitle("SIGN UP", for: .normal)
-        haveAccount.text = "Already have an account?"
-        loginTitle.setTitle("LOGIN", for: .normal)
+        signUpTitle.layer.cornerRadius = 5
         
         birthDateImage.image = UIImage(named: "DateOfBirthIcon")
         
@@ -40,6 +38,8 @@ class SignUpViewController: UIViewController {
         
         datePick.preferredDatePickerStyle = .wheels
         datePick.datePickerMode = .date
+        
+        activityView.isHidden = true
         
     }
     
@@ -98,8 +98,6 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var confirmPasswordError: UILabel!
 
     @IBOutlet weak var signUpTitle: UIButton!
-
-    @IBOutlet weak var haveAccount: UILabel!
 
     @IBAction func loginBtn(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -160,8 +158,6 @@ class SignUpViewController: UIViewController {
             }
         }
     }
-
-    @IBOutlet weak var loginTitle: UIButton!
     
     @objc func dateSet(){
         let toolbar = UIToolbar()
@@ -183,6 +179,59 @@ class SignUpViewController: UIViewController {
         self.view.endEditing(true)
         
     }
+    
+    @IBAction func saveButton(_ sender: UIButton) {
+        checkingDetails()
+        guard let firstnameUser = self.firstNameField.text else {return}
+        guard let lastnameUser = self.lastNameField.text else {return}
+        guard let emailUser = self.emailField.text else {return}
+        guard let passwordUser = self.passwordField.text else {return}
+        guard let confirmPasswordUser = self.confirmPasswordField.text else {return}
+        guard let dobUser = self.birthDate.text else {return}
+        guard let num = self.phoneField.text else {return}
+        
+        let registers = Registeration(first_name: firstnameUser, last_name: lastnameUser, email: emailUser,phone: num, password: passwordUser, gender: selectGender,dob: dobUser, device_token: device_tokens)
+        self.activityView.isHidden = false
+        
+        if passwordUser == confirmPasswordUser {
+            SignupApiManager.shareInstance.callingRegisterAPI(register: registers, completion: {
+                success in
+                if success{
+                    let alert = UIAlertController(title: "Alert", message: "User Register Successfully", preferredStyle: .alert)
+                    let cancel = UIAlertAction(title: "Cancel", style: .default)
+                    alert.addAction(cancel)
+                    self.present(alert, animated: true, completion: .none)
+                    
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let shareVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+                    
+                    self.activityView.isHidden = true
+                    self.modalPresentationStyle = .fullScreen
+                    self.present(shareVC, animated: true)
+                }
+                else{
+                    let alert = UIAlertController(title: "Alert", message: "Email Found, Please enter new email", preferredStyle: .alert)
+                    let cancel = UIAlertAction(title: "Cancel", style: .default)
+                    
+                    alert.addAction(cancel)
+                    self.present(alert, animated: true, completion: nil)
+                    print("User Found")
+                    self.activityView.isHidden = true
+                    
+                }})
+        }
+        else{
+            let alert = UIAlertController(title: "Submission", message: "Password do not match", preferredStyle: .alert)
+            let cancel = UIAlertAction(title: "Cancel", style: .default)
+
+            alert.addAction(cancel)
+            present(alert, animated: true, completion: nil)
+            self.activityView.isHidden = true
+        }
+    }
+    
+    
+    @IBOutlet weak var activityView: UIView!
     
     func checkingDetails(){
         
@@ -229,52 +278,6 @@ class SignUpViewController: UIViewController {
             alert.addAction(cancel)
             present(alert, animated: true, completion: nil)
         }
-
-        else if confirmPasswordField.text != passwordField.text{
-            let alert = UIAlertController(title: "Submission", message: "Password do not match", preferredStyle: .alert)
-            let cancel = UIAlertAction(title: "Cancel", style: .default)
-
-            alert.addAction(cancel)
-            present(alert, animated: true, completion: nil)
-        }
-        
-        
-    }
-    
-    @IBAction func saveButton(_ sender: UIButton) {
-        checkingDetails()
-        guard let firstnameUser = self.firstNameField.text else {return}
-        guard let lastnameUser = self.lastNameField.text else {return}
-        guard let emailUser = self.emailField.text else {return}
-        guard let passwordUser = self.passwordField.text else {return}
-        guard let dobUser = self.birthDate.text else {return}
-        guard let num = self.phoneField.text else {return}
-        
-        let registers = Registeration(first_name: firstnameUser, last_name: lastnameUser, email: emailUser,phone: num, password: passwordUser, gender: selectGender,dob: dobUser, device_token: device_tokens)
-        
-        SignupApiManager.shareInstance.callingRegisterAPI(register: registers, completion: {
-            success in
-            if success{
-                let alert = UIAlertController(title: "Alert", message: "User Register Successfully", preferredStyle: .alert)
-                let cancel = UIAlertAction(title: "Cancel", style: .default)
-                alert.addAction(cancel)
-                self.present(alert, animated: true, completion: .none)
-                
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let shareVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-
-                self.modalPresentationStyle = .fullScreen
-                self.present(shareVC, animated: true)
-            }
-            else{
-                let alert = UIAlertController(title: "Alert", message: "Email Found, Please enter new email", preferredStyle: .alert)
-                let cancel = UIAlertAction(title: "Cancel", style: .default)
-
-                alert.addAction(cancel)
-                self.present(alert, animated: true, completion: nil)
-                print("User Found")
-            
-            }})
     }
     
     func validateName(_ firstName: String) -> String? {

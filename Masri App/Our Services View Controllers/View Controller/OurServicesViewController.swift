@@ -12,9 +12,7 @@ class OurServicesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setVC()
-        facialBtnLable.setTitle("Facial", for: .normal)
         facialBtnLable.layer.cornerRadius = 5
-        bodyBtnLable.setTitle("Body", for: .normal)
         bodyBtnLable.layer.cornerRadius = 5
         backIcon.setImage(UIImage(systemName: "arrow.backward"), for: .normal)
         backIcon.setTitle("", for: .normal)

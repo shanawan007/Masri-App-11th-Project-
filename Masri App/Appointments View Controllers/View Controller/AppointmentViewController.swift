@@ -17,45 +17,54 @@ class AppointmentViewController: UIViewController,UITableViewDelegate, UITableVi
     let datePickForEnd = UIDatePicker()
     
     var appointmentModelComing: [AppointmentRequest] = []
+    var originalAppointmentData: [AppointmentRequest] = []
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         backImage.image = UIImage(named: "BackgroundImage")
         
+        table.delegate = self
+        
+        table.dataSource = self
+        
         menuButton.setTitle("", for: .normal)
+        
         menuButton.setImage(UIImage(named: "menuImage"), for: .normal)
         
         backButton.setTitle("BACK", for: .normal)
         
         instaPic.image = UIImage(named: "insta")
-        instaLink.text = "instagram.com/masriclinic/"
         
         www.image = UIImage(named: "web_link")
         
-        wwwLable.text = "www.masriclinic.com/"
-        
-        
         upcoming.layer.cornerRadius = 5
-        lastAppointment.layer.cornerRadius = 5
         
+        lastAppointment.layer.cornerRadius = 5
         
         startDateCalender.image = UIImage(named: "DateOfBirthIcon")
         
-        
         endDateCalender.image = UIImage(named: "DateOfBirthIcon")
+        
         self.navigationController?.navigationBar.isHidden = true
+        
         let attributedStringForClearButton = NSAttributedString(string: "Clear Filter", attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+        
         clearButton.setAttributedTitle(attributedStringForClearButton, for: .normal)
         
         table.register(UINib(nibName: "AppointmentTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
-        table.delegate = self
-        table.dataSource = self
+        
         startDate.addTarget(self, action: #selector(dateSetForStart), for: .touchDown)
+        
         endDate.addTarget(self, action: #selector(dateSetForEnd), for: .touchDown)
         
         datePickForStart.preferredDatePickerStyle = .wheels
+        
         datePickForStart.datePickerMode = .date
+        
         datePickForEnd.preferredDatePickerStyle = .wheels
+        
         datePickForEnd.datePickerMode = .date
     
         appointmentCheck()
@@ -76,11 +85,7 @@ class AppointmentViewController: UIViewController,UITableViewDelegate, UITableVi
     
     @IBOutlet weak var instaPic: UIImageView!
     
-    @IBOutlet weak var instaLink: UILabel!
-    
     @IBOutlet weak var www: UIImageView!
-    
-    @IBOutlet weak var wwwLable: UILabel!
     
     @IBOutlet weak var upcoming: UIButton!
     
@@ -95,17 +100,6 @@ class AppointmentViewController: UIViewController,UITableViewDelegate, UITableVi
     @IBOutlet weak var endDateCalender: UIImageView!
     
     @IBOutlet weak var clearButton: UIButton!
-    
-    @IBAction func clearFilter(val sender: Any) {
-        startDate.text = ""
-        endDate.text = ""
-        
-        appointmentCheck()
-        DispatchQueue.main.async {
-            self.table.reloadData()
-        }
-        
-    }
     
     func appointmentCheck()
         {
@@ -122,17 +116,26 @@ class AppointmentViewController: UIViewController,UITableViewDelegate, UITableVi
                         let displayDateFormatter = DateFormatter()
                         displayDateFormatter.dateFormat = "MMM d, yyyy"
                         let formattedDateString = displayDateFormatter.string(from: apiDate!)
-                        self.appointmentModelComing.append(AppointmentRequest(appointment_date: formattedDateString, appointment_time: appointment.appointment_time, visit_reason: appointment.visit_reason, doctor_name: appointment.doctor_name, address: appointment.address))
+                        
+                        let appointmentRecieved = AppointmentRequest(appointment_date: formattedDateString, appointment_time: appointment.appointment_time, visit_reason: appointment.visit_reason, doctor_name: appointment.doctor_name, address: appointment.address)
+                        
+                        self.appointmentModelComing.append(appointmentRecieved)
+                        self.originalAppointmentData.append(appointmentRecieved)
                     }
                    
                     DispatchQueue.main.async {
                         self.table.reloadData()
+                        
                     }
                     }
                 self.activityContainer.isHidden = true
             })
         }
-
+    
+    @IBAction func upcomingAppointmentData(_ sender: Any) {
+        
+    }
+    
     @objc func dateSetForStart(){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
@@ -171,6 +174,13 @@ class AppointmentViewController: UIViewController,UITableViewDelegate, UITableVi
         checkingFilteredArray()
         self.view.endEditing(true)
         
+    }
+    
+    
+    @IBAction func clearFilterData(_ sender: Any) {
+        appointmentModelComing = originalAppointmentData
+        
+        table.reloadData()
     }
     
     func checkingFilteredArray(){

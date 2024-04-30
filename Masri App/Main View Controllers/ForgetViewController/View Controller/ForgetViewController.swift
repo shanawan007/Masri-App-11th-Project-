@@ -8,13 +8,14 @@
 import UIKit
 
 class ForgetViewController: UIViewController {
-
+    
     var otp: String = "123142312312"
+    
+    var forgetArray : [ForgetModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ForgetTitle.text = "Password Reset"
-        cancelTitle.setTitle("Cancel", for: .normal)
         cancelTitle.layer.cornerRadius = 5
         nextTitle.setTitle("Next", for: .normal)
         nextTitle.layer.cornerRadius = 5
@@ -22,6 +23,7 @@ class ForgetViewController: UIViewController {
         newPassword.isHidden = true
         confirmPassword.isHidden = true
         submitBtn.isHidden = true
+        activityView.isHidden = true
     }
     
     @IBOutlet weak var ForgetTitle: UILabel!
@@ -41,7 +43,7 @@ class ForgetViewController: UIViewController {
             else {
                 emailErrorTitle.isHidden = true
             }
-           
+            
         }
         
     }
@@ -53,7 +55,7 @@ class ForgetViewController: UIViewController {
     @IBOutlet weak var cancelTitle: UIButton!
     
     @IBOutlet weak var nextTitle: UIButton!
-
+    
     @IBOutlet weak var newPassword: UITextField!
     
     @IBOutlet weak var confirmPassword: UITextField!
@@ -75,37 +77,43 @@ class ForgetViewController: UIViewController {
             present(alert, animated: true, completion: nil)
         }
         
-        else if confirmPassword.text != newPassword.text{
-            let alert = UIAlertController(title: "Submission", message: "Password do not match", preferredStyle: .alert)
-            let cancel = UIAlertAction(title: "Cancel", style: .default)
-            
-            alert.addAction(cancel)
-            present(alert, animated: true, completion: nil)
-        }
+        let userFound = UserDefaults.standard.string(forKey: "userEmail")
         
+        let userOTP = otp
+        guard let passwordUser = newPassword.text else { return }
+        guard let confirmPasswordUser = confirmPassword.text else { return }
         
-        guard let passwordUser = confirmPassword.text else { return }
+        let userInfo = ForgetModel(username: userFound!, otp: userOTP, password: passwordUser)
         
-        let username = UserDefaults.standard.string(forKey: "userEmail")
-        //let otpCode = UserDefaults.standard.string(forKey: "otp")
-        let forgetPasswordUser = ForgetModel(username: username!, otp: otp, password: passwordUser)
-        
-        if passwordUser != ""{
-            ForgetApiManager.shareInstance.callingForgetAPI(forget: forgetPasswordUser, completionHandler: { (result) in
-                if result{
-                    DispatchQueue.main.async {
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let shareVC = storyboard.instantiateViewController(withIdentifier:"HomeViewController") as! HomeViewController
-                        self.navigationController?.popToViewController(shareVC, animated: true)
+        if passwordUser == confirmPasswordUser{
+            activityView.isHidden = false
+                ForgetApiManager.shareInstance.callingForgetAPI(forget: userInfo,completionHandler: { (result) in
+                    if result {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            let shareVC = storyboard.instantiateViewController(withIdentifier:"HomeViewController") as! HomeViewController
+                            shareVC.modalPresentationStyle = .fullScreen
+                            self.present(shareVC, animated: true)
+                            
+                            }
+                        self.activityView.isHidden = true
+                    }
+                    else{
+                        print("Failure to pass")
+                            
+                    }
                     }
                     
-                }
-                else{
-                    print("Failure to pass")
-                        
-                }
-                })
-        }}
+                )
+        }
+        else{
+           let alert = UIAlertController(title: "Submission", message: "Password Do Not Match", preferredStyle: .alert)
+                let cancel = UIAlertAction(title: "Cancel", style: .default)
+                alert.addAction(cancel)
+                present(alert, animated: true, completion: nil)
+            self.activityView.isHidden = true
+        }
+    }
     
     @IBAction func nextButton(_ sender: Any) {
         checkingDetails()
@@ -142,6 +150,8 @@ class ForgetViewController: UIViewController {
     
     @IBOutlet weak var submitBtn: UIButton!
    
+    @IBOutlet weak var activityView: UIView!
+    
     func checkingDetails(){
         
         if emailField.text == "" || emailField.text!.count == 0 {

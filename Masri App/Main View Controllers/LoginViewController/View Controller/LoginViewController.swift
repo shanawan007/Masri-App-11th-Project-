@@ -15,22 +15,17 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         backGround.image = UIImage(named: "BackgroundImage")
         logoText.image = UIImage(named: "LogoText")
-        haveAccount.text = "Don't have an account?"
+        
         let attributedString = NSAttributedString(string: "Forget Password?", attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
         forgetTitle.setAttributedTitle(attributedString, for: .normal)
         
-        login.setTitle("Login", for: .normal)
         login.layer.cornerRadius = 5
         
         checkButton.setImage(UIImage(named: "unchecked"), for: .normal)
         checkButton.setTitle("", for: .normal)
-        rememberTitle.text = "Remember Me"
-        appleTitle.setTitle("Continue with Apple", for: .normal)
         appleIcon.image = UIImage(named: "appleIcon")
         appleTitle.layer.cornerRadius = 5
-        signUpTitle.setTitle("Sign Up", for: .normal)
         
-        termsTitle.setTitle("Terms of Use", for: .normal)
         let attributedStringForTerms = NSAttributedString(string: "Terms of Use", attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
         termsTitle.setAttributedTitle(attributedStringForTerms, for: .normal)
         let attributedStringForPrivacy = NSAttributedString(string: "Privacy Policy", attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
@@ -78,8 +73,6 @@ class LoginViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var rememberTitle: UILabel!
-    
     @IBOutlet weak var forgetTitle: UIButton!
     
     @IBAction func forgetPassword(_ sender: Any) {
@@ -113,12 +106,14 @@ class LoginViewController: UIViewController {
                         homeVC.modalPresentationStyle = .fullScreen
                         self.present(homeVC, animated: true)
                     }
+                    self.progessView.isHidden = true
                 }
                 else{
                     let alert = UIAlertController(title: "Alert", message: "User Not Found", preferredStyle: .alert)
                     let cancel = UIAlertAction(title: "Cancel", style: .default)
                     alert.addAction(cancel)
                     self.present(alert, animated: true, completion: .none)
+                    self.progessView.isHidden = true
                 }
             }
             
@@ -129,6 +124,7 @@ class LoginViewController: UIViewController {
 
                 alert.addAction(cancel)
                 present(alert, animated: true, completion: nil)
+            self.progessView.isHidden = true
         }
         
     }
@@ -144,8 +140,6 @@ class LoginViewController: UIViewController {
     }
     
     @IBOutlet weak var appleIcon: UIImageView!
-    
-    @IBOutlet weak var haveAccount: UILabel!
     
     @IBOutlet weak var signUpTitle: UIButton!
     

@@ -15,24 +15,14 @@ struct ForgetApiManager{
         let headers: HTTPHeaders = [
             .contentType("application/json")
         ]
-        AF.request(forget_url, method: .post, parameters: forget, encoder: JSONParameterEncoder.default, headers: headers).response{ response in
+        AF.request(forget_url, method: .post, parameters: forget, encoder: JSONParameterEncoder.default, headers: headers).responseJSON { response in
             debugPrint(response)
             switch response.result{
-            case .success(let data):
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data!) as? [String: Any]
-                    if let jsonObject = json as? [String: Any], let password = jsonObject["password"] as? String{
-                        completionHandler(true)
-                    }
-                    else{
-                        completionHandler(false)
-                    }
-                } catch {
-                    completionHandler(false)
-                    return
-                }
+                
+            case .success(_):
+                return completionHandler(true)
             case .failure(_):
-                completionHandler(false)
+                return completionHandler(false)
             }
             
         }
