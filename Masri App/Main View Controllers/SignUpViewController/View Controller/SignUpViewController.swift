@@ -201,15 +201,16 @@ class SignUpViewController: UIViewController {
             SignupApiManager.shareInstance.callingRegisterAPI(register: registers, completion: {
                 success in
                 if success{
-//                    let alert = UIAlertController(title: "Alert", message: "User Register Successfully", preferredStyle: .alert)
-//                    let cancel = UIAlertAction(title: "Cancel", style: .default)
-//                    alert.addAction(cancel)
-//                    self.present(alert, animated: true, completion: nil)
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        shareVC.modalPresentationStyle = .fullScreen
-                        self.present(shareVC, animated: true)
+                    let alert = UIAlertController(title: "Alert", message: "User Register Successfully", preferredStyle: .alert)
+                    let cancel = UIAlertAction(title: "Cancel", style: .default) { _ in
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            shareVC.modalPresentationStyle = .fullScreen
+                            self.present(shareVC, animated: true)
+                        }
                     }
+                    alert.addAction(cancel)
+                    self.present(alert, animated: true, completion: nil)
                     
                     self.activityView.isHidden = true
                 }

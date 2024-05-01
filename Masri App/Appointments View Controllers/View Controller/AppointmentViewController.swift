@@ -105,29 +105,15 @@ class AppointmentViewController: UIViewController,UITableViewDelegate, UITableVi
         {
             activityContainer.isHidden = false
             AppointmentApiManager.shareInstance.callingAppointmentAPI(completionHandler: {
-                (result) in
-                if let found = result {
-                    
-                    for appointment in found{
-                        let apiDateFormatter = DateFormatter()
-                        apiDateFormatter.dateFormat = "yyyy-MM-dd"
-
-                        let apiDate = apiDateFormatter.date(from: appointment.appointment_date)
-                        let displayDateFormatter = DateFormatter()
-                        displayDateFormatter.dateFormat = "MMM d, yyyy"
-                        let formattedDateString = displayDateFormatter.string(from: apiDate!)
-                        
-                        let appointmentRecieved = AppointmentRequest(appointment_date: formattedDateString, appointment_time: appointment.appointment_time, visit_reason: appointment.visit_reason, doctor_name: appointment.doctor_name, address: appointment.address)
-                        
-                        self.appointmentModelComing.append(appointmentRecieved)
-                        self.originalAppointmentData.append(appointmentRecieved)
-                    }
-                   
-                    DispatchQueue.main.async {
-                        self.table.reloadData()
-                        
-                    }
-                    }
+                (response) in
+                if let found = response {
+                    print("Data: \(found)")
+//                    self.appointmentModelComing = found
+//                    self.originalAppointmentData = found
+                }
+                DispatchQueue.main.async {
+                    self.table.reloadData()
+                }
                 self.activityContainer.isHidden = true
             })
         }
@@ -185,14 +171,24 @@ class AppointmentViewController: UIViewController,UITableViewDelegate, UITableVi
     
     func checkingFilteredArray(){
         
-        let startDateText = startDate.text!
-        let endDateText = endDate.text!
-        if startDateText != "" && endDateText != "" {
-            let newArray = appointmentModelComing.filter { appointment in
-                return appointment.appointment_date >= startDateText && appointment.appointment_date <= endDateText
+       let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, yyyy"
+        
+        guard let startDate = dateFormatter.date(from: startDate.text!),
+              let endDate = dateFormatter.date(from: endDate.text!) else{
+                return
+              }
+
+        let newArray = originalAppointmentData.filter { appointment in
+            guard let appointmentDate = dateFormatter.date(from: appointment.appointment_date) else {
+                return false
             }
-            appointmentModelComing = newArray
+            
+            return appointmentDate >= startDate && appointmentDate <= endDate
         }
+
+        appointmentModelComing = newArray
+        
         table.reloadData()
 
     }

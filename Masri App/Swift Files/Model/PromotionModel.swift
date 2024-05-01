@@ -7,8 +7,13 @@
 
 import Foundation
 
-struct PromotionModel: Encodable{
-    
-    var imageURL: String
+struct Promotions: Decodable{
+   var id: String
+   var title: String
+   var details: String
+   var image: String
+   var start_date: String
+   var end_date: String
+   var status: String
+   var created_at: String
 }
-

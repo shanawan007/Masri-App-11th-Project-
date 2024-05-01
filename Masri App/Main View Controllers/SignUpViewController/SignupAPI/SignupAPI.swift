@@ -20,20 +20,19 @@ struct SignupApiManager{
             switch response.result{
                 
             case .success(let data):
+                
                 do{
                     guard let json = try? JSONSerialization.jsonObject(with: data!) as? [String:Any] else {
                         completion(false)
                         return
                     }
-                    print("here is my status code \(response.response?.statusCode)")
                     if let success = json["success"] as? Bool{
+                        
                         completion(success)
                     }
                     else{
                         completion(false)
                     }
-                    //                    completion("I am successfull")
-                    
                 } catch {
                     print("Result: \(response)")
                     completion(false)

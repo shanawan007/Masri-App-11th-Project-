@@ -6,7 +6,7 @@ import AlamofireImage
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SideMenuNavigationControllerDelegate {
     
-    var promotions: [PromotionModel] = []
+    var promotions: [Promotions] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,11 +47,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func fetchData() {
         PromotionApiManager.shareInstance.callingPromotionAPI(completionHandler: {
-            (imageURLComing) in
-            if let imageURLFound = imageURLComing{
-                for found in imageURLFound {
-                    self.promotions.append(PromotionModel(imageURL: found.imageURL))
-                    }
+            (response) in
+            if let imageURLFound = response{
+                self.promotions = response ?? []
+                
                 DispatchQueue.main.async{
                     self.tableOfPromotion.reloadData()
                 }
@@ -68,9 +67,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableOfPromotion.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! HomeViewCell
+        let mainURL = "https://masriapi.ssasoft.com/"
+        if let promotion = promotions[indexPath.row] as? Promotions{
+            let url = URL(string: mainURL + promotion.image )
+            
         
-        if let promotion = promotions[indexPath.row] as? PromotionModel{
-            let url = URL(string: promotion.imageURL)
+            
             cell.picturesOnDisplay.af.setImage(withURL: url!)
         }
         cell.contentView.layer.cornerRadius = 12

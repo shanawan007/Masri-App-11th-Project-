@@ -20,7 +20,12 @@ struct ForgetApiManager{
             switch response.result{
                 
             case .success(_):
-                return completionHandler(true)
+                if response.response?.statusCode == 200 {
+                    return completionHandler(true)
+                }
+                else{
+                    return completionHandler(false)
+                }
             case .failure(_):
                 return completionHandler(false)
             }
