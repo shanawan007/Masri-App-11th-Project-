@@ -108,8 +108,8 @@ class AppointmentViewController: UIViewController,UITableViewDelegate, UITableVi
                 (response) in
                 if let found = response {
                     print("Data: \(found)")
-//                    self.appointmentModelComing = found
-//                    self.originalAppointmentData = found
+                    self.appointmentModelComing = found
+                    self.originalAppointmentData = found
                 }
                 DispatchQueue.main.async {
                     self.table.reloadData()

@@ -23,25 +23,21 @@ struct AppointmentApiManager{
             switch response.result {
             case .success(let data):
                 if let json = data as? [String: Any],
-                    let appointmentJSON = json["appointments"] as? [[String: Any]]
-                {
-                do {
-                    let jsonData = try JSONSerialization.data(withJSONObject: appointmentJSON, options: [])
-                    let appointments = try JSONDecoder().decode([AppointmentRequest].self, from: jsonData)
-                    
-                    completionHandler(appointments)
-                    
-                    print("Appointment Data: \(appointments)")
+                   let appointmentJSON = json["appointments"] as? [String: Any]{
+                    do {
+                        let jsonData = try JSONSerialization.data(withJSONObject: appointmentJSON, options: [])
+                        let appointments = try JSONDecoder().decode([AppointmentRequest].self, from: jsonData)
+                        completionHandler(appointments)
+                        
                     }
-                catch {
-                    print("Error decoding JSON: \(error)")
-                    completionHandler(nil)
+                    catch {
+                        print("Error decoding JSON: \(error)")
+                        completionHandler(nil)
                     }
                 }
                 else{
                     completionHandler(nil)
                 }
-                    
             case .failure(_):
                 completionHandler(nil)
             }

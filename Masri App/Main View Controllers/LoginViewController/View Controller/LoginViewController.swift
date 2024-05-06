@@ -10,7 +10,6 @@ import Alamofire
 
 class LoginViewController: UIViewController {
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         backGround.image = UIImage(named: "BackgroundImage")
@@ -156,8 +155,9 @@ class LoginViewController: UIViewController {
     
     @IBAction func terms(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let shareVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-        self.navigationController?.pushViewController(shareVC, animated: true)
+        let shareVC = storyboard.instantiateViewController(withIdentifier: "TermsViewController") as! TermsViewController
+        shareVC.modalPresentationStyle = .fullScreen
+        self.present(shareVC, animated: true)
     }
 
     @IBOutlet weak var privacyTitle: UIButton!
@@ -165,7 +165,8 @@ class LoginViewController: UIViewController {
     @IBAction func PrivacyPolicy(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let shareVC = storyboard.instantiateViewController(withIdentifier: "PrivacyViewController") as! PrivacyViewController
-        self.navigationController?.pushViewController(shareVC, animated: true)
+        shareVC.modalPresentationStyle = .fullScreen
+        self.present(shareVC, animated: true)
     }
     
     @IBOutlet weak var progessView: UIView!

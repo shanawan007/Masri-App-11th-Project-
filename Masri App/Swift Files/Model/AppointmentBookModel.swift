@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AppointmentRequest: Decodable{
+struct AppointmentRequest: Codable{
     
    var first_name: String
    var last_name: String
@@ -25,7 +25,7 @@ struct AppointmentRequest: Decodable{
    var visited_before: String
    var provider_name: String
    var paid_via: String
-   var created_by: String
+   var created_by: String?
    var visit_type: String
    var doctor_name: String
    var address: String
